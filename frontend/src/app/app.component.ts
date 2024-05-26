@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { TextAnalyzerComponent } from './text-analyzer/text-analyzer.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  imports: [CommonModule, TextAnalyzerComponent],
+  template: `
+    <app-text-analyzer></app-text-analyzer>
+  `,
 })
-export class AppComponent {
-  title = 'frontend';
-}
+export class AppComponent { }

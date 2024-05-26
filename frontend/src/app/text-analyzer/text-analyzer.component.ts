@@ -21,13 +21,17 @@ export class TextAnalyzerComponent {
   constructor(private textAnalyzerService: TextAnalyzerService) { }
 
   analyzeText() {
+    console.log('Analyze Text called. Online mode:', this.onlineMode);
     if (this.onlineMode) {
       this.textAnalyzerService.analyzeText(this.analysisType, this.inputText).subscribe(response => {
+        console.log('Response from server:', response);
         this.results = response;
         this.previousResults.push({ inputText: this.inputText, results: response });
       });
     } else {
+      console.log('Offline analysis');
       this.results = this.analyzeTextOffline(this.analysisType, this.inputText);
+      console.log('Offline analysis results:', this.results);
       this.previousResults.push({ inputText: this.inputText, results: this.results });
     }
   }
@@ -43,7 +47,7 @@ export class TextAnalyzerComponent {
       });
     } else if (type === 'consonants') {
       chars.forEach(char => {
-        if (!'aeiouAEIOU'.includes(char) && /[a-zA-Z]/.test(char)) {
+        if (/[a-zA-Z]/.test(char) && !'aeiouAEIOU'.includes(char)) {
           result[char.toLowerCase()] = result[char.toLowerCase()] ? result[char.toLowerCase()] + 1 : 1;
         }
       });
@@ -53,5 +57,6 @@ export class TextAnalyzerComponent {
 
   toggleMode() {
     this.onlineMode = !this.onlineMode;
+    console.log('Online mode toggled. Now:', this.onlineMode);
   }
 }
