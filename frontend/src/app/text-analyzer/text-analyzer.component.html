@@ -1,0 +1,23 @@
+<div>
+  <textarea [(ngModel)]="inputText" placeholder="Enter text"></textarea>
+  <select [(ngModel)]="analysisType">
+    <option value="vowels">Vowels</option>
+    <option value="consonants">Consonants</option>
+  </select>
+  <button (click)="analyzeText()">Analyze</button>
+  <label>
+    <input type="checkbox" [(ngModel)]="onlineMode" (change)="toggleMode()"> Online Mode
+  </label>
+
+  <div *ngIf="results">
+    <h3>Current Results:</h3>
+    <pre>{{ results | json }}</pre>
+  </div>
+
+  <div *ngIf="previousResults.length">
+    <h3>Previous Results:</h3>
+    <div *ngFor="let result of previousResults">
+      <pre>{{ result.inputText }}: {{ result.results | json }}</pre>
+    </div>
+  </div>
+</div>
