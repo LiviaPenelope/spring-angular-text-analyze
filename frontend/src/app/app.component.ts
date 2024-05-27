@@ -8,7 +8,6 @@ import { TextAnalyzerComponent } from './text-analyzer/text-analyzer.component';
   imports: [CommonModule, TextAnalyzerComponent],
   template: `
     <div>
-      <h1>{{ title }}</h1>
       <app-text-analyzer></app-text-analyzer>
     </div>
   `,

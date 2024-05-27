@@ -1,23 +1,43 @@
-<div>
-  <textarea [(ngModel)]="inputText" placeholder="Enter text"></textarea>
-  <select [(ngModel)]="analysisType">
-    <option value="vowels">Vowels</option>
-    <option value="consonants">Consonants</option>
-  </select>
-  <button (click)="analyzeText()">Analyze</button>
-  <label>
-    <input type="checkbox" [(ngModel)]="onlineMode" (change)="toggleMode()"> Online Mode
-  </label>
-
-  <div *ngIf="results">
-    <h3>Current Results:</h3>
-    <pre>{{ results | json }}</pre>
+<header>
+  <h1>Text Analyzer</h1>
+  <div class="switch-container">
+    <label class="switch" for="onlineModeSwitch">
+      <input type="checkbox" id="onlineModeSwitch" [(ngModel)]="onlineMode" aria-label="Toggle online mode">
+      <span class="slider round"></span>
+    </label>
+    <span>{{ onlineMode ? 'Online Mode Enabled' : 'Online Mode Disabled' }}</span>
   </div>
+</header>
+<main>
+  <section class="input-section">
+    <label for="inputTextArea">Text Input</label>
+    <textarea id="inputTextArea" [(ngModel)]="inputText" placeholder="Enter your text here..." aria-label="Enter your text here"></textarea>
 
-  <div *ngIf="previousResults.length">
-    <h3>Previous Results:</h3>
-    <div *ngFor="let result of previousResults">
-      <pre>{{ result.inputText }}: {{ result.results | json }}</pre>
+    <label for="analysisTypeSelect">Analysis Type</label>
+    <select id="analysisTypeSelect" [(ngModel)]="analysisType" aria-label="Select analysis type">
+      <option value="vowels">Vowels</option>
+      <option value="consonants">Consonants</option>
+    </select>
+
+    <button (click)="analyzeText()" aria-label="Analyze text">Analyze Text</button>
+  </section>
+  <section class="result-section">
+    <div id="currentResult" class="result-card" aria-live="polite">
+      <h2>Analysis Result</h2>
+      <p>Type: {{ analysisType }}</p>
+      <div *ngFor="let key of resultsKeys">
+        {{ key }}: {{ results[key] }}
+      </div>
     </div>
-  </div>
-</div>
+    <div id="previousResults">
+      <h3>Previous Results</h3>
+      <div *ngFor="let result of previousResults" class="result-card">
+        <h4>{{ result.inputText }}</h4>
+        <p>Type: {{ result.analysisType }}</p>
+        <div *ngFor="let key of result.resultsKeys">
+          {{ key }}: {{ result.results[key] }}
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

@@ -15,24 +15,33 @@ export class TextAnalyzerComponent {
   inputText: string = '';
   analysisType: string = 'vowels';
   results: any = {};
+  resultsKeys: string[] = [];
   previousResults: any[] = [];
   onlineMode: boolean = true;
 
-  constructor(private textAnalyzerService: TextAnalyzerService) { }
+  constructor(private textAnalyzerService: TextAnalyzerService) {}
 
   analyzeText() {
-    console.log('Analyze Text called. Online mode:', this.onlineMode);
     if (this.onlineMode) {
       this.textAnalyzerService.analyzeText(this.analysisType, this.inputText).subscribe(response => {
-        console.log('Response from server:', response);
         this.results = response;
-        this.previousResults.push({ inputText: this.inputText, results: response });
+        this.resultsKeys = Object.keys(this.results);
+        this.previousResults.push({
+          inputText: this.inputText,
+          results: response,
+          resultsKeys: Object.keys(response),
+          analysisType: this.analysisType
+        });
       });
     } else {
-      console.log('Offline analysis');
       this.results = this.analyzeTextOffline(this.analysisType, this.inputText);
-      console.log('Offline analysis results:', this.results);
-      this.previousResults.push({ inputText: this.inputText, results: this.results });
+      this.resultsKeys = Object.keys(this.results);
+      this.previousResults.push({
+        inputText: this.inputText,
+        results: this.results,
+        resultsKeys: Object.keys(this.results),
+        analysisType: this.analysisType
+      });
     }
   }
 
@@ -57,6 +66,5 @@ export class TextAnalyzerComponent {
 
   toggleMode() {
     this.onlineMode = !this.onlineMode;
-    console.log('Online mode toggled. Now:', this.onlineMode);
   }
 }
