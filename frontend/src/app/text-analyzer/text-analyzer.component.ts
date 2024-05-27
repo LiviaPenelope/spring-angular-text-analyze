@@ -51,13 +51,13 @@ export class TextAnalyzerComponent {
     if (type === 'vowels') {
       chars.forEach(char => {
         if ('aeiouAEIOU'.includes(char)) {
-          result[char.toLowerCase()] = result[char.toLowerCase()] ? result[char.toLowerCase()] + 1 : 1;
+          result[char.toUpperCase()] = result[char.toUpperCase()] ? result[char.toUpperCase()] + 1 : 1;
         }
       });
     } else if (type === 'consonants') {
       chars.forEach(char => {
         if (/[a-zA-Z]/.test(char) && !'aeiouAEIOU'.includes(char)) {
-          result[char.toLowerCase()] = result[char.toLowerCase()] ? result[char.toLowerCase()] + 1 : 1;
+          result[char.toUpperCase()] = result[char.toUpperCase()] ? result[char.toUpperCase()] + 1 : 1;
         }
       });
     }
