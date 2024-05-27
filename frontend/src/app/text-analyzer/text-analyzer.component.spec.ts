@@ -30,7 +30,7 @@ describe('TextAnalyzerComponent', () => {
 
   it('should analyze text for vowels correctly in offline mode', () => {
     const text = 'example';
-    const expectedResults = { e: 2, a: 1 };
+    const expectedResults = { E: 2, A: 1 };
     component.analysisType = 'vowels';
     component.onlineMode = false;
     component.inputText = text;
@@ -40,7 +40,7 @@ describe('TextAnalyzerComponent', () => {
 
   it('should analyze text for consonants correctly in offline mode', () => {
     const text = 'hello';
-    const expectedResults = { h: 1, l: 2 };
+    const expectedResults = { H: 1, L: 2 };
     component.analysisType = 'consonants';
     component.onlineMode = false;
     component.inputText = text;
@@ -50,7 +50,7 @@ describe('TextAnalyzerComponent', () => {
 
   it('should analyze text for vowels correctly in online mode', () => {
     const text = 'example';
-    const expectedResults = { e: 2, a: 1 };
+    const expectedResults = { E: 2, A: 1 };
     spyOn(textAnalyzerService, 'analyzeText').and.returnValue(of(expectedResults));
     component.analysisType = 'vowels';
     component.onlineMode = true;
@@ -61,7 +61,7 @@ describe('TextAnalyzerComponent', () => {
 
   it('should analyze text for consonants correctly in online mode', () => {
     const text = 'hello';
-    const expectedResults = { h: 1, l: 2 };
+    const expectedResults = { H: 1, L: 2 };
     spyOn(textAnalyzerService, 'analyzeText').and.returnValue(of(expectedResults));
     component.analysisType = 'consonants';
     component.onlineMode = true;
