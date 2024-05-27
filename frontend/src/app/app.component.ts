@@ -7,7 +7,12 @@ import { TextAnalyzerComponent } from './text-analyzer/text-analyzer.component';
   standalone: true,
   imports: [CommonModule, TextAnalyzerComponent],
   template: `
-    <app-text-analyzer></app-text-analyzer>
+    <div>
+      <h1>{{ title }}</h1>
+      <app-text-analyzer></app-text-analyzer>
+    </div>
   `,
 })
-export class AppComponent { }
+export class AppComponent {
+  title = 'Vowel & Consonant Counter';
+}
