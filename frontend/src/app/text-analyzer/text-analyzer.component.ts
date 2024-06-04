@@ -14,6 +14,7 @@ import { TextAnalyzerService } from '../text-analyzer.service';
 export class TextAnalyzerComponent {
   inputText: string = '';
   analysisType: string = 'vowels';
+  currentResultType: string = this.analysisType;
   results: any = {};
   resultsKeys: string[] = [];
   previousResults: any[] = [];
@@ -22,25 +23,29 @@ export class TextAnalyzerComponent {
   constructor(private textAnalyzerService: TextAnalyzerService) {}
 
   analyzeText() {
+    this.currentResultType = this.analysisType; // Set currentResultType to the selected analysisType
+
     if (this.onlineMode) {
       this.textAnalyzerService.analyzeText(this.analysisType, this.inputText).subscribe(response => {
         this.results = response;
         this.resultsKeys = Object.keys(this.results);
-        this.previousResults.push({
+        this.previousResults.unshift({
           inputText: this.inputText,
           results: response,
           resultsKeys: Object.keys(response),
-          analysisType: this.analysisType
+          analysisType: this.analysisType,
+          isOnline: this.onlineMode
         });
       });
     } else {
       this.results = this.analyzeTextOffline(this.analysisType, this.inputText);
       this.resultsKeys = Object.keys(this.results);
-      this.previousResults.push({
+      this.previousResults.unshift({
         inputText: this.inputText,
         results: this.results,
         resultsKeys: Object.keys(this.results),
-        analysisType: this.analysisType
+        analysisType: this.analysisType,
+        isOnline: this.onlineMode
       });
     }
   }
@@ -62,9 +67,5 @@ export class TextAnalyzerComponent {
       });
     }
     return result;
-  }
-
-  toggleMode() {
-    this.onlineMode = !this.onlineMode;
   }
 }

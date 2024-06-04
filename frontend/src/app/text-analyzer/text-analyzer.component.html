@@ -24,7 +24,7 @@
   <section class="result-section">
     <div id="currentResult" class="result-card" aria-live="polite">
       <h2>Analysis Result</h2>
-      <p>Type: {{ analysisType }}</p>
+      <p>Type: {{ currentResultType }}</p>
       <div *ngFor="let key of resultsKeys">
         {{ key }}: {{ results[key] }}
       </div>
@@ -34,6 +34,7 @@
       <div *ngFor="let result of previousResults" class="result-card">
         <h4>{{ result.inputText }}</h4>
         <p>Type: {{ result.analysisType }}</p>
+        <p>Mode: {{ result.isOnline ? 'Online' : 'Offline' }}</p>
         <div *ngFor="let key of result.resultsKeys">
           {{ key }}: {{ result.results[key] }}
         </div>
@@ -41,3 +42,4 @@
     </div>
   </section>
 </main>
+
